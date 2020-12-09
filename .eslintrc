@@ -1,0 +1,207 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "import",
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "jest",
+    "testing-library",
+    "jest-dom"
+  ],
+  "extends": [
+    "plugin:react/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest-dom/recommended",
+    "plugin:testing-library/react",
+    "plugin:testing-library/recommended"
+  ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    },
+    "import/resolver": {
+      "webpack": {
+        "config": "./config/webpack/webpack.config.js"
+      }
+    }
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "createDefaultProgram": true,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    // React
+    "react/display-name": 0,
+    "react/jsx-boolean-value": [
+      "error",
+      "never"
+    ],
+    "react/jsx-closing-bracket-location": [
+      1,
+      "after-props"
+    ],
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "parens-new-line"
+      }
+    ],
+    "react/prop-types": 0,
+    "react/prefer-stateless-function": 1,
+    "react/no-danger": "error",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    // React Hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    // Typescript
+    "@typescript-eslint/no-extra-semi": 2,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/member-delimiter-style": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-use-before-define": 1,
+    "@typescript-eslint/no-unused-vars": 2,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/semi": 0,
+    // Imports
+    "sort-imports": 0,
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          [
+            "parent",
+            "sibling",
+            "index",
+            "internal"
+          ],
+          "object"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "pattern": "react+(|-dom)",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react+(|-dom)"
+        ]
+      }
+    ],
+    // General
+    "no-extra-semi": 0,
+    "no-use-before-define": 0,
+    "no-unused-vars": 0,
+    "require-jsdoc": 0,
+    "prefer-template": 2,
+    "default-param-last": 1,
+    "semi": [
+      "error",
+      "never"
+    ],
+    "class-methods-use-this": [
+      "off",
+      {
+        "exceptMethods": [
+          "render",
+          "getInitialState",
+          "getDefaultProps",
+          "getChildContext",
+          "shouldComponentUpdate"
+        ]
+      }
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 110
+      }
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 1
+      }
+    ],
+    "object-property-newline": [
+      "error",
+      {
+        "allowAllPropertiesOnSameLine": true
+      }
+    ],
+    "complexity": [
+      "error",
+      {
+        "max": 9
+      }
+    ],
+    "max-lines": [
+      "error",
+      {
+        "max": 400,
+        "skipComments": true,
+        "skipBlankLines": true
+      }
+    ],
+    "no-implicit-coercion": [
+      2,
+      {
+        "allow": [
+          "!!"
+        ]
+      }
+    ],
+    "max-params": [
+      "error",
+      10
+    ],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error"
+        ]
+      }
+    ],
+    "lines-around-comment": [
+      "error",
+      {
+        "beforeLineComment": true,
+        "beforeBlockComment": true,
+        "allowBlockStart": true,
+        "allowClassStart": true
+      }
+    ]
+  },
+  "env": {
+    "jest": true
+  }
+}

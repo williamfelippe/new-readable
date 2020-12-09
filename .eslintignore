@@ -1,0 +1,8 @@
+/bin/**
+/build/**
+/config/**
+/scripts/**
+/src/transifex/**
+/src/declarations/**
+tailwind.js
+postcss.config.js

@@ -1,0 +1,3 @@
+/build/**
+/node_modules/**
+/src/assets/styles/helpers/_breakpoints.scss
