@@ -1,6 +1,6 @@
 # Readable
 
-![CI](https://github.com/actions/new-readable/workflows/main/badge.svg)
+![CI](https://github.com/williamfelippe/new-readable/workflows/CI/badge.svg?event=pull_request)
 
 Project created to auxiliate the interns of my team on their way to learn React/Redux
 
