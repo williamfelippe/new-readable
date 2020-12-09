@@ -1,5 +1,7 @@
 # Readable
 
+![CI](https://github.com/actions/new-readable/workflows/main/badge.svg)
+
 Project created to auxiliate the interns of my team on their way to learn React/Redux
 
 ## Technologies
