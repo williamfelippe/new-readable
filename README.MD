@@ -1,6 +1,6 @@
 # Readable
 
-Project create to auxiliate the interns of my team.
+Project created to auxiliate the interns of my team on their way to learn React/Redux
 
 ## Technologies
 
