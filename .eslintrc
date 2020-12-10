@@ -78,7 +78,10 @@
     "@typescript-eslint/no-use-before-define": 1,
     "@typescript-eslint/no-unused-vars": 2,
     "@typescript-eslint/explicit-module-boundary-types": 0,
-    "@typescript-eslint/semi": 0,
+    "@typescript-eslint/semi": [
+      "error",
+      "never"
+    ],
     // Imports
     "sort-imports": 0,
     "import/order": [
@@ -198,6 +201,13 @@
         "beforeBlockComment": true,
         "allowBlockStart": true,
         "allowClassStart": true
+      }
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
       }
     ]
   },
