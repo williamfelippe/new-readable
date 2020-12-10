@@ -1,4 +1,4 @@
-name: CI
+name: ci
 
 on:
   pull_request:
@@ -15,8 +15,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version:  12.x
-      - run: yarn
-      - run: yarn lint
-      - run: yarn test:ci
-        env:
-          CI: true
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Tests
+        run: yarn test:ci

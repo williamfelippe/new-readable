@@ -8,7 +8,8 @@ import {
   ADD_POST,
   SET_IS_LOADING_POSTS,
   SET_ERROR_ON_LOAD_POSTS,
-  CHANGE_COMMENT_NUMBER
+  CHANGE_COMMENT_NUMBER,
+  REMOVE_POST
 } from './types'
 
 export const setPosts = (posts: Post[]) => {
@@ -17,6 +18,10 @@ export const setPosts = (posts: Post[]) => {
 
 export const addPost = (post: Post) => {
   return { type: ADD_POST, post }
+}
+
+export const removePost = (postId: string) => {
+  return { type: REMOVE_POST, postId }
 }
 
 export const setIsLoadingPostsAction = (isLoadingPosts: boolean) => {
@@ -56,8 +61,8 @@ export const fetchByPostById = (postId: string) => async (dispatch: Dispatch) =>
 }
 
 export const deletePost = (postId: string) => async (dispatch: Dispatch) => {
-  const post = await PostService.deletePost(postId)
-  dispatch(addPost(post))
+  await PostService.deletePost(postId)
+  dispatch(removePost(postId))
 }
 
 export const votePost = (postId: string, vote: Vote) => async (dispatch: Dispatch) => {

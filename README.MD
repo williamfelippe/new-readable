@@ -1,6 +1,6 @@
 # Readable
 
-![CI](https://github.com/williamfelippe/new-readable/workflows/CI/badge.svg?event=pull_request)
+![CI](https://github.com/williamfelippe/new-readable/workflows/CI/badge.svg)
 
 Project created to auxiliate the interns of my team on their way to learn React/Redux
 
@@ -52,5 +52,11 @@ yarn test:ci
   - public
   - src
     - common
+      - assets
+      - components
+      - routes
+      - store
+      - testsSuit
+      - utils
     - modules
     - views

@@ -14,6 +14,7 @@ import RoutesPaths from 'common/routes/routesPaths'
 import { RootState } from 'common/store'
 import { fetchByPostById } from 'modules/post/store/actions'
 import { fetchCategories } from 'modules/category/store/actions'
+import { CategoryTypes } from 'modules/category/utils/constants'
 import { ArrowLeft, SaveIcon } from 'common/assets/icons'
 import {
   Button,
@@ -74,7 +75,7 @@ const PostForm = () => {
   const options = useMemo(() => {
     return (
       categories
-        .filter(category => category.name !== 'all')
+        .filter(category => category.name !== CategoryTypes.ALL)
         .map(category => ({ value: category.path, label: category.name }))
     )
   }, [categories])

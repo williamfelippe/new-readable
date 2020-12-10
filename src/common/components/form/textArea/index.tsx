@@ -9,7 +9,7 @@ type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLTextAreaElement>, HTMLTex
   name: string,
   label?: string,
   error?: string
-};
+}
 
 const TextArea = forwardRef((
   {
