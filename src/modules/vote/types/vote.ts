@@ -1,6 +1,6 @@
 enum Vote {
   UP = 'upVote',
-  DOWN = "downVote"
+  DOWN = 'downVote'
 }
 
 export default Vote
