@@ -2,6 +2,7 @@ import Post from '../types/post'
 import {
   SET_POSTS,
   ADD_POST,
+  REMOVE_POST,
   SET_IS_LOADING_POSTS,
   SET_ERROR_ON_LOAD_POSTS,
   CHANGE_COMMENT_NUMBER,
@@ -49,7 +50,20 @@ const reducer = (state = initialState, action: PostsActionTypes) => {
       return {
         ...state,
         posts: { ...state.posts, [postId]: action.post },
-        postsIds: [...state.postsIds, postId]
+        postsIds: [...state.postsIds.filter(id => id !== postId), postId]
+      }
+    }
+
+    case REMOVE_POST: {
+      const { postId } = action
+
+      const posts = { ...state.posts }
+      delete posts[postId]
+
+      return {
+        ...state,
+        posts,
+        postsIds: state.postsIds.filter(id => id !== postId)
       }
     }
 
