@@ -9,7 +9,7 @@ type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputE
   name: string,
   label?: string,
   error?: string
-};
+}
 
 const InputText = forwardRef((
   {
