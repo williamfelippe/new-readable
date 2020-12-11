@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom'
 import Post from '../types/post'
 import Vote from 'modules/vote/types/vote'
 import RoutesPaths from 'common/routes/routesPaths'
-import { Button } from 'common/components'
 import { VoteButtons } from 'modules/vote/components'
+import { Button, Tooltip } from 'common/components'
 import {
   CommentIcon,
   EditIcon,
@@ -27,6 +27,7 @@ const ActionsButtons = ({ post, onRemove, onVote }: Props) => {
       <NavLink
         exact
         to={`${RoutesPaths.ROOT}?postId=${post.id}`}
+        data-tip="Comments"
         className={`flex items-center hover:text-indigo-400
         justify-center transition duration-300 ease-in-out`}>
         <CommentIcon /> <span className="m-3">
@@ -37,6 +38,7 @@ const ActionsButtons = ({ post, onRemove, onVote }: Props) => {
       <NavLink
         exact
         to={RoutesPaths.EDIT_POST.replace(':postId', post.id)}
+        data-tip="Edit"
         className={`hover:text-indigo-400 flex justify-center
         transition duration-300 ease-in-out`}>
         <EditIcon />
@@ -44,6 +46,7 @@ const ActionsButtons = ({ post, onRemove, onVote }: Props) => {
 
       <Button
         onClick={handleRemove}
+        data-tip="Remove"
         className="hover:text-indigo-400 transition duration-300 ease-in-out">
         <RemoveIcon />
       </Button>
@@ -52,6 +55,8 @@ const ActionsButtons = ({ post, onRemove, onVote }: Props) => {
         onVote={handleVote}
         className="justify-center"
         voteScore={post.voteScore} />
+
+      <Tooltip />
     </div>
   )
 }
