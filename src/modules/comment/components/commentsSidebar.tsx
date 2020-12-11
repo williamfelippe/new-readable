@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Vote from 'modules/vote/types/vote'
 import { RootState } from 'common/store'
-import { voteComment } from '../store/actions'
+import { voteComment } from '../slice/thunks'
 import {
   CommentsList,
   CreateCommentArea,
@@ -30,7 +30,7 @@ const CommentsSidebar = ({
   const { comments, isLoadingComments } = useSelector((state: RootState) => state.comment)
 
   const onVote = async (commentId: string, vote: Vote) => {
-    dispatch(voteComment(commentId, vote))
+    dispatch(voteComment({ commentId, vote }))
   }
 
   const renderContent = () => {

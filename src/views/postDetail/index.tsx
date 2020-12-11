@@ -9,10 +9,10 @@ import RoutesPaths from 'common/routes/routesPaths'
 import { RootState } from 'common/store'
 import { ArrowLeft } from 'common/assets/icons'
 import { useConfirmationDeleteModal } from 'modules/post/hooks'
-import { fetchComments, voteComment } from 'modules/comment/store/actions'
+import { fetchComments, voteComment } from 'modules/comment/slice/thunks'
 import { Container, Loader, Title, Toast } from 'common/components'
 import { ActionsButtons, ConfirmModal, PostBadge } from 'modules/post/components'
-import { fetchByPostById, votePost, deletePost } from 'modules/post/store/actions'
+import { fetchByPostById, votePost, deletePost } from 'modules/post/slice/thunks'
 import { CommentsList, CreateCommentArea, NoComments } from 'modules/comment/components'
 
 const PostDetail = () => {
@@ -37,7 +37,9 @@ const PostDetail = () => {
     }
   }, [dispatch, postId])
 
-  const handleVotePost = (postId: string, vote: Vote) => dispatch(votePost(postId, vote))
+  const handleVotePost = (postId: string, vote: Vote) => {
+    dispatch(votePost({ postId, vote }))
+  }
 
   const handleRemovePost = async () => {
     await dispatch(deletePost(postId))
@@ -47,7 +49,7 @@ const PostDetail = () => {
   }
 
   const handleVoteComment = (commentId: string, vote: Vote) => {
-    dispatch(voteComment(commentId, vote))
+    dispatch(voteComment({ commentId, vote }))
   }
 
   const renderCommentsArea = () => {
@@ -62,7 +64,7 @@ const PostDetail = () => {
     )
   }
 
-  if (!post) return <Loader />
+  if (!post) return <Loader full />
 
   return (
     <Container>

@@ -15,7 +15,7 @@ class CommentService {
   }
 
   static async postComment(comment: NewComment) {
-    const response = await api.post<NewComment>(`/comments`, comment)
+    const response = await api.post<Comment>(`/comments`, comment)
     return response.data
   }
 

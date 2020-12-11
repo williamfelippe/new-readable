@@ -6,7 +6,7 @@ import DateUtil from 'common/utils/date'
 import MockInfoUtil from 'common/utils/mockInfo'
 import { NewComment } from '../types/comment'
 import { SendIcon } from 'common/assets/icons'
-import { postComment } from '../store/actions'
+import { postComment } from '../slice/thunks'
 import { Button, InputText, Toast } from 'common/components'
 
 interface FormInputs {

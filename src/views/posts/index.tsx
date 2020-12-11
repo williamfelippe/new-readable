@@ -7,11 +7,10 @@ import Vote from 'modules/vote/types/vote'
 import RoutesPaths from 'common/routes/routesPaths'
 import { RootState } from 'common/store'
 import { PlusIcon } from 'common/assets/icons'
+import { clearComments } from 'modules/comment/slice'
 import { CategoryMenu } from 'modules/category/components'
 import { CommentsSidebar } from 'modules/comment/components'
-import { clearComments } from 'modules/comment/store/actions'
 import { CategoryTypes } from 'modules/category/utils/constants'
-import { fetchCategories } from 'modules/category/store/actions'
 import {
   useCommentsSidebar,
   useConfirmationDeleteModal,
@@ -26,7 +25,7 @@ import {
   votePost,
   fetchPosts,
   deletePost
-} from 'modules/post/store/actions'
+} from 'modules/post/slice/thunks'
 import {
   Button,
   Container,
@@ -53,10 +52,7 @@ const Posts = () => {
     errorOnLoadPosts
   } = useSelector((state: RootState) => state.post)
 
-  const {
-    categories,
-    errorOnLoadCategories
-  } = useSelector((state: RootState) => state.category)
+  const { categories } = useSelector((state: RootState) => state.category)
 
   const currentPostsIds = useFilterProductIdByCategory(categoryId, posts, postsIds)
 
@@ -72,18 +68,21 @@ const Posts = () => {
     handleCommentsSideBarClosing
   } = useCommentsSidebar(postId)
 
-  const fetchCategoriesAndPosts = useCallback(() => {
-    dispatch(fetchCategories())
+  const getPosts = useCallback(() => {
     dispatch(fetchPosts())
   }, [dispatch])
 
   useEffect(() => {
-    fetchCategoriesAndPosts()
-  }, [fetchCategoriesAndPosts])
+    getPosts()
+  }, [getPosts])
 
-  const openPageToAddNewPost = () => history.push(RoutesPaths.NEW_POST)
+  const openPageToAddNewPost = () => {
+    history.push(RoutesPaths.NEW_POST)
+  }
 
-  const onVotePost = (postId: string, vote: Vote) => dispatch(votePost(postId, vote))
+  const onVotePost = (postId: string, vote: Vote) => {
+    dispatch(votePost({ postId, vote }))
+  }
 
   const removePost = async () => {
     if (modalData) {
@@ -100,14 +99,13 @@ const Posts = () => {
   }
 
   const renderContent = () => {
-    if (isLoadingPosts) {
-      return <Loader full />
-    }
+    if (isLoadingPosts) return <Loader full />
 
-    if (errorOnLoadPosts || errorOnLoadCategories) {
+    if (errorOnLoadPosts) {
       return (
         <ErrorRecoverState
-          onTryAgain={fetchCategoriesAndPosts} />
+          errorMessage={errorOnLoadPosts}
+          onTryAgain={getPosts} />
       )
     }
 

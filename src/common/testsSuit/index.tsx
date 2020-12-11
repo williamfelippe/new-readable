@@ -1,9 +1,8 @@
 import { ReactNode } from 'react'
 
-import thunk from 'redux-thunk'
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
-import { applyMiddleware, createStore, Store } from 'redux'
+import { configureStore, Store } from '@reduxjs/toolkit'
 import { Router, Route } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import { createMemoryHistory, MemoryHistory } from 'history'
@@ -28,7 +27,7 @@ export const renderWithProviders = (
     route = RoutesPaths.ROOT,
     path = RoutesPaths.ROOT,
     history = createMemoryHistory({ initialEntries: [route] }),
-    store = createStore(rootReducer, applyMiddleware(thunk))
+    store = configureStore({ reducer: rootReducer })
   }: RenderWithProviderOptions = {}
 ) => {
   const Wrapper = ({ children }: Props) => (

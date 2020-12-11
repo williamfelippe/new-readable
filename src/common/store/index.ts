@@ -1,17 +1,11 @@
-import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import { applyMiddleware, compose, createStore, combineReducers } from 'redux'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import postReducer from 'modules/post/store'
-import commentReducer from 'modules/comment/store'
-import categoryReducer from 'modules/category/store'
+import postReducer from 'modules/post/slice'
+import commentReducer from 'modules/comment/slice'
+import categoryReducer from 'modules/category/slice'
 
-const logger = createLogger({
-  level: 'info',
-  collapsed: true
-})
-
-const middlewares = compose(applyMiddleware(thunk, logger))
+const logger = createLogger({ level: 'info', collapsed: true })
 
 export const rootReducer = combineReducers({
   post: postReducer,
@@ -19,7 +13,10 @@ export const rootReducer = combineReducers({
   category: categoryReducer
 })
 
-const store = createStore(rootReducer, middlewares)
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger)
+})
 
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof store.getState>
 export default store
