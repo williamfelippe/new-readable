@@ -44,7 +44,7 @@ const Toast = () => {
     }
   }, [isToastShowed])
 
-  const classes = classnames('fixed top-8 right-8 max-w-sm py-6 px-10 rounded-md text-lg font-bold', {
+  const classes = classnames('fixed z-50 top-8 right-8 max-w-sm py-6 px-10 rounded-md text-lg font-bold', {
     'flex': isToastShowed,
     'hidden': !isToastShowed,
     'bg-green-200': type === ToastType.SUCCESS,
