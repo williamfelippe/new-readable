@@ -12,7 +12,8 @@ const config = merge(common, {
       new TerserPlugin({ parallel: true }),
     ],
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      maxSize: 256000
     }
   },
   performance: {
