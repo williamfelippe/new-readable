@@ -3,7 +3,6 @@ import Post from 'modules/post/types/post'
 import TestServer from 'common/testsSuit/server'
 import MockRequests from 'common/testsSuit/mockRequest'
 import { renderWithProviders, screen, waitFor } from 'common/testsSuit'
-import Category from 'modules/category/types/category'
 
 const testServer = new TestServer()
 
@@ -52,29 +51,5 @@ describe('The posts page', () => {
 
     await waitFor(() => expect(screen.getByText('Test title')).toBeInTheDocument())
     expect(screen.getByText('Test2 title')).toBeInTheDocument()
-  })
-
-  it('should show categories after a request with content', async () => {
-    const mockCategoriesList: { categories: Category[] } = {
-      categories: [
-        {
-          path: 'redux',
-          name: 'redux'
-        },
-        {
-          path: 'react',
-          name: 'react'
-        }
-      ]
-    }
-
-    MockRequests.mock<{ categories: Category[] }>(
-      testServer.server, '/categories', mockCategoriesList
-    )
-
-    renderWithProviders(<Posts />)
-
-    await waitFor(() => expect(screen.getByRole('link', { name: /redux/i })).toBeInTheDocument())
-    expect(screen.getByRole('link', { name: /react/i })).toBeInTheDocument()
   })
 })
