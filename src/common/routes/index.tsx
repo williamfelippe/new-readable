@@ -19,7 +19,7 @@ const Routes = () => {
     <Router>
       <Header />
 
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader full />}>
         <Switch>
           <Route exact path={[RoutesPaths.NEW_POST, RoutesPaths.EDIT_POST]}>
             <PostForm />
