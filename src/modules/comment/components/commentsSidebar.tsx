@@ -50,14 +50,21 @@ const CommentsSidebar = ({
       open={isOpen}
       onClose={onClose}>
       <>
-        <Title
-          tag="h2"
-          title="comments"
-          className="mb-5" />
+        <div className="px-8">
+          <Title
+            tag="h2"
+            title="comments"
+            className="mb-5" />
 
-        {renderContent()}
+          {renderContent()}
+        </div>
 
-        {postId && <CreateCommentArea postId={postId} />}
+        {
+          postId && (
+            <CreateCommentArea
+              postId={postId} />
+          )
+        }
       </>
     </Sidebar>
   )

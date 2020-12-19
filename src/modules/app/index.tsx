@@ -34,7 +34,7 @@ const App = () => {
   return (
     <>
       <Toast />
-      <main className="bg-gray-50 h-screen">
+      <main className="bg-gray-50 h-auto min-h-screen">
         <Routes />
       </main>
     </>
