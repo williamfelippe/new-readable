@@ -9,7 +9,6 @@
     "start": "cross-env NODE_ENV=development webpack serve --config ./config/webpack/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config ./config/webpack/webpack.prod.js",
     "lint": "eslint --ext ts,tsx ./src --max-warnings 0",
-    "lint:style": "stylelint '**/*.scss' --syntax scss",
     "analyzer": "cross-env NODE_ENV=production webpack --config config/webpack/webpack.analyzer.js",
     "test": "jest --config ./config/jest/jest.config.js --coverage --runInBand --detectOpenHandles --logHeapUsage --verbose",
     "test:ci": "jest --config ./config/jest/jest.config.js --coverage --maxWorkers=2 --ci",
@@ -17,6 +16,7 @@
     "type-check": "tsc"
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.29.0",
     "@testing-library/jest-dom": "~5.11.6",
     "@testing-library/react": "~11.2.2",
     "@testing-library/user-event": "~12.5.0",
@@ -56,7 +56,6 @@
     "redux-logger": "~3.0.6",
     "sass-loader": "~10.1.0",
     "style-loader": "~2.0.0",
-    "stylelint": "~13.8.0",
     "tailwindcss": "~2.0.1",
     "ts-jest": "~26.4.4",
     "ts-loader": "~8.0.11",
@@ -81,6 +80,7 @@
     "react-redux": "^7.2.2",
     "react-router-dom": "~5.2.0",
     "react-tooltip": "^4.2.11",
+    "redux": "^4.0.5",
     "yup": "~0.32.1"
   }
 }
