@@ -25,7 +25,7 @@ const addComment = (state: CommentState, newComment: Comment) => {
 }
 
 const commentSlice = createSlice({
-  name: 'category',
+  name: 'comment',
   initialState,
   reducers: {
     clearComments(state) {
