@@ -10,10 +10,9 @@ Project created to auxiliate the interns of my team on their way to learn React/
 - React Hook Form
 - Yup
 - Luxon
-- Redux
 - Jest
 - React Testing Library
-- RTK - soon
+- Redux Toolkit
 
 ## How to run
 

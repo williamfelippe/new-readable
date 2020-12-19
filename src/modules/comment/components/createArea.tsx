@@ -6,18 +6,24 @@ import DateUtil from 'common/utils/date'
 import MockInfoUtil from 'common/utils/mockInfo'
 import { NewComment } from '../types/comment'
 import { SendIcon } from 'common/assets/icons'
-import { postComment } from '../store/actions'
+import { postComment } from '../slice/thunks'
 import { Button, InputText, Toast } from 'common/components'
+
+export enum CreateCommentAreaPosition {
+  STICKY = 'sticky',
+  FIXED = 'fixed'
+}
 
 interface FormInputs {
   comment: string
 }
 
 interface Props {
-  postId: string
+  postId: string,
+  position?: CreateCommentAreaPosition.STICKY | CreateCommentAreaPosition.FIXED
 }
 
-const CreateCommentArea = ({ postId }: Props) => {
+const CreateCommentArea = ({ postId, position = CreateCommentAreaPosition.STICKY }: Props) => {
   const dispatch = useDispatch()
 
   const { register, handleSubmit, setValue, reset } = useForm<FormInputs>()
@@ -48,12 +54,14 @@ const CreateCommentArea = ({ postId }: Props) => {
     }
   }
 
+  const classes = classnames(`flex items-center bottom-0 left-0 p-5 w-full
+  border-t border-gray-200 shadow bg-gray-50`, position)
+
   return (
     <form
       noValidate
-      onSubmit={handleSubmit(handleComment)}
-      className={`flex items-center absolute bottom-0 left-0 p-5 w-full
-      border-t border-gray-200 shadow bg-gray-50`}>
+      className={classes}
+      onSubmit={handleSubmit(handleComment)}>
       <div className="flex-grow">
         <InputText
           name="comment"

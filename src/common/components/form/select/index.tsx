@@ -43,6 +43,9 @@ const Select = forwardRef((
         ref={selectRef}
         className={selectClasses}
         {...rest}>
+        <option value="" className="text-gray-700 text-md">
+          Choose an option
+        </option>
         {
           options.map(option => (
             <option

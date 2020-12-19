@@ -1,5 +1,5 @@
 import RefreshIcon from '../../assets/icons/refresh'
-import { Button, Card, Title } from '../'
+import { Button } from '../'
 
 interface Props {
   errorMessage?: string,
@@ -8,26 +8,26 @@ interface Props {
 
 const ErrorRecoverState = ({ errorMessage, onTryAgain }: Props) => {
   return (
-    <Card className="w-full">
-      <div className="flex flex-col items-center">
-        <Title tag="h3" title="Ops..." className="mb-8" unstyled />
+    <div className="w-full max-w-xl m-auto flex flex-col items-center p-6">
+      <p className="mb-8 text-4xl">
+        Ops...
+      </p>
 
-        <p className="text-sm text-gray-400 mb-8">
-          {errorMessage || 'Something wrong happened'}
-        </p>
+      <p className="text-gray-500 text-xl mb-8">
+        {errorMessage || 'Something wrong happened'}
+      </p>
 
-        {
-          onTryAgain && (
-            <Button
-              onClick={onTryAgain}
-              className={`bg-indigo-400 bg-black text-white text-lg py-2 px-5
+      {
+        onTryAgain && (
+          <Button
+            onClick={onTryAgain}
+            className={`bg-indigo-400 bg-black text-white text-lg py-2 px-5
               hover:ring-4 hover:ring-indigo-400`}>
-              <span className="mr-3">Try again</span> <RefreshIcon />
-            </Button>
-          )
-        }
-      </div>
-    </Card>
+            <span className="mr-3">Try again</span> <RefreshIcon />
+          </Button>
+        )
+      }
+    </div>
   )
 }
 

@@ -3,8 +3,8 @@ import { useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { object, string } from 'yup'
+import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useHistory, useParams } from 'react-router-dom'
 
 import DateUtil from 'common/utils/date'
 import PostService from 'modules/post/services'
@@ -12,14 +12,15 @@ import NewPost from 'modules/post/types/newPost'
 import MockInfoUtil from 'common/utils/mockInfo'
 import RoutesPaths from 'common/routes/routesPaths'
 import { RootState } from 'common/store'
-import { fetchByPostById } from 'modules/post/store/actions'
-import { fetchCategories } from 'modules/category/store/actions'
+import { fetchByPostById } from 'modules/post/slice/thunks'
 import { CategoryTypes } from 'modules/category/utils/constants'
 import { ArrowLeft, SaveIcon } from 'common/assets/icons'
 import {
   Button,
   Container,
+  ErrorRecoverState,
   InputText,
+  Loader,
   Select,
   TextArea,
   Title,
@@ -46,17 +47,23 @@ const PostForm = () => {
 
   const { postId } = useParams<Record<string, string>>()
 
-  const post = useSelector((state: RootState) => state.post.posts?.[postId])
-  const categories = useSelector((state: RootState) => state.category.categories)
+  const {
+    post,
+    isLoadingPosts,
+    errorOnLoadPosts
+  } = useSelector((state: RootState) => {
+    return {
+      post: state.post.posts?.[postId],
+      ...state.post
+    }
+  })
+
+  const { categories } = useSelector((state: RootState) => state.category)
 
   const { register, handleSubmit, errors, setValue } = useForm<FormInputs>({
     resolver: yupResolver(schema),
     mode: 'onBlur'
   })
-
-  useEffect(() => {
-    dispatch(fetchCategories())
-  }, [dispatch])
 
   useEffect(() => {
     if (postId) {
@@ -65,20 +72,20 @@ const PostForm = () => {
   }, [dispatch, postId])
 
   useEffect(() => {
-    if (post) {
-      setValue('title', post.title)
-      setValue('comment', post.body)
-      setValue('category', post.category)
-    }
+    setValue('title', post?.title)
+    setValue('comment', post?.body)
+    setValue('category', post?.category)
   }, [post, setValue])
 
   const options = useMemo(() => {
-    return (
-      categories
-        .filter(category => category.name !== CategoryTypes.ALL)
-        .map(category => ({ value: category.path, label: category.name }))
-    )
+    return categories
+      .filter(category => category.name !== CategoryTypes.ALL)
+      .map(category => ({ value: category.path, label: category.name }))
   }, [categories])
+
+  const retryFetchs = () => {
+    dispatch(fetchByPostById(postId))
+  }
 
   const savePost = (payload: NewPost) => {
     return (postId)
@@ -117,15 +124,30 @@ const PostForm = () => {
     history.replace(RoutesPaths.EDIT_POST.replace(':postId', updatedPost.id))
   }
 
+  const goBack = () => {
+    history.goBack()
+  }
+
+  if(isLoadingPosts) {
+    return <Loader full />
+  }
+
+  if (errorOnLoadPosts) {
+    return (
+      <ErrorRecoverState
+        onTryAgain={retryFetchs}
+        errorMessage={errorOnLoadPosts} />
+    )
+  }
+
   return (
     <Container>
-      <NavLink
-        exact
-        to={RoutesPaths.ROOT}
+      <Button
+        onClick={goBack}
         className={`hover:text-indigo-400 transition
         ease-in-out duration-300`}>
         <ArrowLeft />
-      </NavLink>
+      </Button>
 
       <div className="max-w-5xl mx-auto">
         <Title

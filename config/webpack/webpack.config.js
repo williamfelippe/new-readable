@@ -14,17 +14,7 @@ const getTSConfigFile = () => {
 }
 
 const config = {
-  entry: {
-    index: {
-      import: path.resolve(path.join(paths.SRC, '/index.tsx')),
-      dependOn: 'shared'
-    },
-    mockInfo: {
-      import: path.resolve(path.join(paths.SRC, 'common/utils/mockInfo.ts')),
-      dependOn: 'shared'
-    },
-    shared: 'chance'
-  },
+  entry: path.resolve(path.join(paths.SRC, '/index.tsx')),
   output: {
     publicPath: '/',
     path: paths.BUILD,

@@ -1,19 +1,43 @@
-import { Provider } from 'react-redux'
+import { useEffect } from 'react'
 
-import store from 'common/store'
+import { useDispatch, useSelector } from 'react-redux'
+
 import Routes from 'common/routes'
-import { Toast } from 'common/components'
+import { RootState } from 'common/store'
+import { fetchCategories } from 'modules/category/slice/thunks'
+import { ErrorRecoverState, Loader, Toast } from 'common/components'
 
 import 'tailwindcss/tailwind.css'
 
 const App = () => {
+  const dispatch = useDispatch()
+
+  const {
+    isLoadingCategories,
+    errorOnLoadCategories
+  } = useSelector((state: RootState) => state.category)
+
+  useEffect(() => {
+    dispatch(fetchCategories())
+  }, [dispatch])
+
+  if(isLoadingCategories) return <Loader full />
+
+  if(errorOnLoadCategories) {
+    return (
+      <ErrorRecoverState
+        onTryAgain={() => dispatch(fetchCategories())}
+        errorMessage={errorOnLoadCategories} />
+    )
+  }
+
   return (
-    <Provider store={store}>
+    <>
       <Toast />
-      <main className="bg-gray-50 h-screen">
+      <main className="bg-gray-50 h-auto min-h-screen">
         <Routes />
       </main>
-    </Provider>
+    </>
   )
 }
 

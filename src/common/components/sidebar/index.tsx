@@ -8,13 +8,14 @@ import { CloseIcon } from 'common/assets/icons'
 interface Props {
   children: ReactNode,
   open: boolean,
-  onClose: () => void
+  onClose: () => void,
+  className?: string
 }
 
-const Sidebar = ({ children, open, onClose }: Props) => {
+const Sidebar = ({ children, open, onClose, className }: Props) => {
   const classes = classnames(`transform top-0 right-0 w-1/4 bg-white fixed h-full
   overflow-auto ease-in-out transition-all duration-300 z-30
-  border-l-2 border-opacity-60 shadow p-8`, {
+  border-l-2 border-opacity-60 shadow`, className, {
     '-translate-x-0': open,
     'translate-x-full': !open
   })
@@ -24,7 +25,7 @@ const Sidebar = ({ children, open, onClose }: Props) => {
       <aside className={classes}>
         <Button
           onClick={onClose}
-          className="hover:text-indigo-400 text-base mb-8">
+          className="hover:text-indigo-400 text-base mb-8 pt-8 pl-8">
           <CloseIcon />
         </Button>
 

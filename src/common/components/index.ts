@@ -10,6 +10,7 @@ import Sidebar from './sidebar'
 import TextArea from './form/textArea'
 import Title from './title'
 import Toast from './toast'
+import Tooltip from './tooltip'
 
 export {
   Button,
@@ -23,5 +24,6 @@ export {
   Sidebar,
   TextArea,
   Title,
-  Toast
+  Toast,
+  Tooltip
 }

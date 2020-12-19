@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Vote from 'modules/vote/types/vote'
 import { RootState } from 'common/store'
-import { voteComment } from '../store/actions'
+import { voteComment } from '../slice/thunks'
 import {
   CommentsList,
   CreateCommentArea,
@@ -30,7 +30,7 @@ const CommentsSidebar = ({
   const { comments, isLoadingComments } = useSelector((state: RootState) => state.comment)
 
   const onVote = async (commentId: string, vote: Vote) => {
-    dispatch(voteComment(commentId, vote))
+    dispatch(voteComment({ commentId, vote }))
   }
 
   const renderContent = () => {
@@ -50,14 +50,21 @@ const CommentsSidebar = ({
       open={isOpen}
       onClose={onClose}>
       <>
-        <Title
-          tag="h2"
-          title="comments"
-          className="mb-5" />
+        <div className="px-8">
+          <Title
+            tag="h2"
+            title="comments"
+            className="mb-5" />
 
-        {renderContent()}
+          {renderContent()}
+        </div>
 
-        {postId && <CreateCommentArea postId={postId} />}
+        {
+          postId && (
+            <CreateCommentArea
+              postId={postId} />
+          )
+        }
       </>
     </Sidebar>
   )

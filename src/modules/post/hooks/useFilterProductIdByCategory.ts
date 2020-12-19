@@ -9,6 +9,8 @@ const useFilterProductIdByCategory = (
   postsIds: string[]
 ) => {
   const currentPostsIds = useMemo(() => {
+    if(postsIds.length <= 0) return postsIds
+
     if (categoryId && categoryId !== CategoryTypes.ALL) {
       let filteredPostsIds: string[] = []
       postsIds.forEach(postsId => {

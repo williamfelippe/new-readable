@@ -9,10 +9,11 @@ import RoutesPaths from 'common/routes/routesPaths'
 import { RootState } from 'common/store'
 import { ArrowLeft } from 'common/assets/icons'
 import { useConfirmationDeleteModal } from 'modules/post/hooks'
-import { fetchComments, voteComment } from 'modules/comment/store/actions'
+import { CreateCommentAreaPosition } from 'modules/comment/components/createArea'
+import { fetchComments, voteComment } from 'modules/comment/slice/thunks'
 import { Container, Loader, Title, Toast } from 'common/components'
 import { ActionsButtons, ConfirmModal, PostBadge } from 'modules/post/components'
-import { fetchByPostById, votePost, deletePost } from 'modules/post/store/actions'
+import { fetchByPostById, votePost, deletePost } from 'modules/post/slice/thunks'
 import { CommentsList, CreateCommentArea, NoComments } from 'modules/comment/components'
 
 const PostDetail = () => {
@@ -37,7 +38,9 @@ const PostDetail = () => {
     }
   }, [dispatch, postId])
 
-  const handleVotePost = (postId: string, vote: Vote) => dispatch(votePost(postId, vote))
+  const handleVotePost = (postId: string, vote: Vote) => {
+    dispatch(votePost({ postId, vote }))
+  }
 
   const handleRemovePost = async () => {
     await dispatch(deletePost(postId))
@@ -47,11 +50,17 @@ const PostDetail = () => {
   }
 
   const handleVoteComment = (commentId: string, vote: Vote) => {
-    dispatch(voteComment(commentId, vote))
+    dispatch(voteComment({ commentId, vote }))
   }
 
-  const renderCommentsArea = () => {
-    if (isLoadingComments) return <Loader />
+  const renderCommentsList = () => {
+    if (isLoadingComments) {
+      return (
+        <div className="w-full flex items-center justify-center">
+          <Loader />
+        </div>
+      )
+    }
 
     if (comments.length <= 0) return <NoComments />
 
@@ -62,7 +71,7 @@ const PostDetail = () => {
     )
   }
 
-  if (!post) return <Loader />
+  if (!post) return <Loader full />
 
   return (
     <Container>
@@ -107,9 +116,11 @@ const PostDetail = () => {
               title="Comments"
               className="mb-10" />
 
-            {renderCommentsArea()}
+            {renderCommentsList()}
 
-            <CreateCommentArea postId={postId} />
+            <CreateCommentArea
+              postId={postId}
+              position={CreateCommentAreaPosition.FIXED} />
           </div>
         </div>
 

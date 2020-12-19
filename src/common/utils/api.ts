@@ -15,9 +15,9 @@ const instance = axios.create({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getErrorMessage = (error: any) => {
   if (error.response) {
-    return error.response.data
+    return error.response.data.toString()
   } else if (error.message) {
-    return error.message
+    return error.message.toString()
   }
 
   return 'Ops... an unexpected error occur'
@@ -28,7 +28,7 @@ instance.interceptors.response.use(
   error => {
     const errorMessage = getErrorMessage(error)
     Toast.showToast(errorMessage, Toast.Type.ERROR)
-    return Promise.reject(error)
+    return Promise.reject(errorMessage)
   }
 )
 

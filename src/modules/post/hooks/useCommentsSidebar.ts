@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 
-import { fetchComments } from 'modules/comment/store/actions'
+import { fetchComments } from 'modules/comment/slice/thunks'
 
 const useCommentsSidebar = (postId: string | null) => {
   const dispatch = useDispatch()
