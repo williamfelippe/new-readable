@@ -2,9 +2,9 @@ import { ReactNode } from 'react'
 
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
-import { configureStore, Store } from '@reduxjs/toolkit'
+import { render } from '@testing-library/react'
 import { Router, Route } from 'react-router-dom'
-import { render, screen } from '@testing-library/react'
+import { configureStore, Store } from '@reduxjs/toolkit'
 import { createMemoryHistory, MemoryHistory } from 'history'
 
 import RoutesPaths from '../routes/routesPaths'
@@ -46,19 +46,6 @@ export const renderWithProviders = (
     ),
     history
   }
-}
-
-export const getByTextWithMarkup = (text: string) => {
-  return (
-    screen.getByText((_, node) => {
-      const hasText = (node: HTMLElement) => node.textContent === text
-      const childrenDontHaveText = Array.from(node.children).every(
-        child => !hasText(child as HTMLElement)
-      )
-
-      return hasText(node) && childrenDontHaveText
-    })
-  )
 }
 
 export { userEvent }
