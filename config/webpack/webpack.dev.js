@@ -6,9 +6,6 @@ const common = require('./webpack.config.js')
 
 const config = merge(common, {
   mode: 'development',
-  optimization: {
-    runtimeChunk: 'single'
-  },
   devServer: {
     port: 8000,
     open: false,
