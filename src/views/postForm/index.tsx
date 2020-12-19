@@ -13,7 +13,6 @@ import MockInfoUtil from 'common/utils/mockInfo'
 import RoutesPaths from 'common/routes/routesPaths'
 import { RootState } from 'common/store'
 import { fetchByPostById } from 'modules/post/slice/thunks'
-import { fetchCategories } from 'modules/category/slice/thunks'
 import { CategoryTypes } from 'modules/category/utils/constants'
 import { ArrowLeft, SaveIcon } from 'common/assets/icons'
 import {
@@ -67,10 +66,6 @@ const PostForm = () => {
   })
 
   useEffect(() => {
-    dispatch(fetchCategories())
-  }, [dispatch])
-
-  useEffect(() => {
     if (postId) {
       dispatch(fetchByPostById(postId))
     }
@@ -89,7 +84,6 @@ const PostForm = () => {
   }, [categories])
 
   const retryFetchs = () => {
-    dispatch(fetchCategories())
     dispatch(fetchByPostById(postId))
   }
 
