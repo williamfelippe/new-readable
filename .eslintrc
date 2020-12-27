@@ -8,17 +8,15 @@
     "@typescript-eslint",
     "jest",
     "testing-library",
-    "jest-dom"
+    "jest-dom",
+    "jest",
+    "cypress"
   ],
   "extends": [
     "plugin:react/recommended",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
-    "plugin:jest-dom/recommended",
-    "plugin:testing-library/react",
-    "plugin:testing-library/recommended"
+    "plugin:@typescript-eslint/recommended"
   ],
   "settings": {
     "react": {
@@ -216,7 +214,25 @@
       }
     ]
   },
+  "overrides": [
+    {
+      "files": ["src/**/*.test.ts?(x)"],
+      "extends": [
+        "plugin:jest/recommended",
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react",
+        "plugin:testing-library/recommended"
+      ]
+    },
+    {
+      "files": ["e2e/**/*.spec.ts?(x)"],
+      "extends": "plugin:cypress/recommended"
+    }
+  ],
   "env": {
-    "jest": true
+    "jest": true,
+    "node": true,
+    "browser": true,
+    "cypress/globals": true
   }
 }
