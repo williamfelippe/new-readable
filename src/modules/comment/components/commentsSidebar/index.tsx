@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Vote from 'modules/vote/types/vote'
 import { RootState } from 'common/store'
-import { voteComment } from '../slice/thunks'
+import { voteComment } from '../../slice/thunks'
 import {
   CommentsList,
   CreateCommentArea,
   NoComments
-} from './'
+} from '../'
 import {
   Loader,
   Sidebar,

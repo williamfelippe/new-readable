@@ -128,7 +128,7 @@ const PostForm = () => {
     history.goBack()
   }
 
-  if(isLoadingPosts) {
+  if (isLoadingPosts) {
     return <Loader full />
   }
 
@@ -144,6 +144,7 @@ const PostForm = () => {
     <Container>
       <Button
         onClick={goBack}
+        data-testid="back-button"
         className={`hover:text-indigo-400 transition
         ease-in-out duration-300`}>
         <ArrowLeft />
@@ -165,6 +166,7 @@ const PostForm = () => {
           onSubmit={handleSubmit(onSubmit)}>
           <InputText
             ref={register}
+            id="title"
             name="title"
             label="Title"
             className="mb-10"
@@ -172,6 +174,7 @@ const PostForm = () => {
 
           <TextArea
             ref={register}
+            id="comment"
             name="comment"
             label="Comment"
             className="mb-10"
@@ -179,11 +182,12 @@ const PostForm = () => {
 
           <Select
             ref={register}
+            id="category"
             name="category"
             label="Category"
             className="mb-10"
-            error={errors.category?.message}
-            options={options} />
+            options={options}
+            error={errors.category?.message} />
 
           <Button
             type="submit"

@@ -23,6 +23,7 @@ const PostItem = ({ post, onRemove, onVote }: Props) => {
       <>
         <NavLink
           exact
+          data-testid="post-item-link"
           className="flex flex-col"
           to={RoutesPaths.POST_DETAIL.replace(':postId', post.id)}>
           <Badge category={post.category} />

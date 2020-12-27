@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
-import { NavLink, useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink, useHistory, useParams } from 'react-router-dom'
 
 import Vote from 'modules/vote/types/vote'
 import Formatter from 'common/utils/formatter'

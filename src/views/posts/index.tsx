@@ -98,8 +98,8 @@ const Posts = () => {
     if (errorOnLoadPosts) {
       return (
         <ErrorRecoverState
-          errorMessage={errorOnLoadPosts}
-          onTryAgain={getPosts} />
+          onTryAgain={getPosts}
+          errorMessage={errorOnLoadPosts} />
       )
     }
 
@@ -132,11 +132,12 @@ const Posts = () => {
 
         <Button
           floating
+          data-testid="add-new-post"
           disabled={isLoadingPosts}
+          onClick={openPageToAddNewPost}
           className={`fixed right-3 bottom-3 lg:right-6 transition
           duration-300 ease-in-out lg:bottom-6 xl:right-8 xl:bottom-8
-          bg-white hover:shadow-lg`}
-          onClick={openPageToAddNewPost}>
+          bg-white hover:shadow-lg`}>
           <PlusIcon />
         </Button>
 
