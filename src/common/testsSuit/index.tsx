@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { Router, Route } from 'react-router-dom'
 import { configureStore, Store } from '@reduxjs/toolkit'
 import { createMemoryHistory, MemoryHistory } from 'history'
@@ -17,6 +17,7 @@ interface Props {
 interface RenderWithProviderOptions {
   route?: string,
   path?: string,
+  initialState?: Record<string, unknown>,
   history?: MemoryHistory,
   store?: Store
 }
@@ -26,8 +27,9 @@ export const renderWithProviders = (
   {
     route = RoutesPaths.ROOT,
     path = RoutesPaths.ROOT,
-    history = createMemoryHistory({ initialEntries: [route] }),
-    store = configureStore({ reducer: rootReducer })
+    initialState = {},
+    store = configureStore({ reducer: rootReducer, preloadedState: initialState }),
+    history = createMemoryHistory({ initialEntries: [route] })
   }: RenderWithProviderOptions = {}
 ) => {
   const Wrapper = ({ children }: Props) => (
@@ -48,5 +50,20 @@ export const renderWithProviders = (
   }
 }
 
-export { userEvent }
+const getByTextWithMarkup = (text: string) => {
+  return (
+    screen.getByText((_, node) => {
+      const hasText = (node: HTMLElement) => node.textContent === text
+
+      const container = node as HTMLElement
+      const childrenDontHaveText = Array.from(container.children).every(
+        child => !hasText(child as HTMLElement)
+      )
+
+      return hasText(node as HTMLElement) && childrenDontHaveText
+    })
+  )
+}
+
+export { userEvent, getByTextWithMarkup }
 export * from '@testing-library/react'

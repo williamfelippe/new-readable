@@ -2,6 +2,11 @@ import axios from 'axios'
 
 import { Toast } from 'common/components'
 
+interface ApiError {
+  message: string,
+  statusCode: number
+}
+
 export const baseURL = 'http://localhost:3001'
 
 const instance = axios.create({
@@ -14,21 +19,26 @@ const instance = axios.create({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getErrorMessage = (error: any) => {
+  let apiError: ApiError
+
   if (error.response) {
-    return error.response.data.toString()
+    const { status, data } = error.response
+    apiError = { statusCode: status, message: data.toString() }
   } else if (error.message) {
-    return error.message.toString()
+    apiError = { statusCode: error.status, message: error.message.toString() }
+  } else {
+    apiError = { statusCode: error.status, message: 'Ops... an unexpected error occurr' }
   }
 
-  return 'Ops... an unexpected error occur'
+  return apiError
 }
 
 instance.interceptors.response.use(
   response => response,
   error => {
-    const errorMessage = getErrorMessage(error)
-    Toast.showToast(errorMessage, Toast.Type.ERROR)
-    return Promise.reject(errorMessage)
+    const apiError = getErrorMessage(error)
+    Toast.showToast(apiError.message, Toast.Type.ERROR)
+    return Promise.reject(apiError)
   }
 )
 
