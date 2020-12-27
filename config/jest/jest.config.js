@@ -34,12 +34,18 @@ module.exports = {
       }
     }
   },
+  "collectCoverageFrom": [
+    'src/**/*.{ts,tsx}',
+    '!src/index.tsx',
+    '!src/**/*.d.ts',
+    '!src/common/assets/icons/*.ts?(x)'
+  ],
   "coverageThreshold": {
     "global": {
-      "statements": 74,
-      "branches": 41,
-      "functions": 47,
-      "lines": 76
+      "statements": 82,
+      "branches": 71,
+      "functions": 68,
+      "lines": 83
     }
   }
 }
