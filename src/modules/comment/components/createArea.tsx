@@ -70,6 +70,7 @@ const CreateCommentArea = ({ postId, position = CreateCommentAreaPosition.STICKY
       </div>
 
       <Button
+        data-testid="create-area-submit-button"
         type="submit"
         disabled={false}
         className={classnames('ml-5 hover:text-indigo-400 text-base flex-none', {

@@ -37,22 +37,22 @@ const commentSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchComments.pending, (state) => {
       state.isLoadingComments = true
-    })
+    }),
     builder.addCase(fetchComments.fulfilled, (state, { payload }) => {
       state.comments = payload
       state.isLoadingComments = false
       state.errorOnLoadComments = ''
-    })
+    }),
     builder.addCase(fetchComments.rejected, (state, action) => {
       if (!action.payload) {
         state.errorOnLoadComments = action.error.message || ''
       }
 
       state.isLoadingComments = false
-    })
+    }),
     builder.addCase(postComment.fulfilled, (state, { payload }) => {
       state.comments = addComment(state, payload)
-    })
+    }),
     builder.addCase(voteComment.fulfilled, (state, { payload }) => {
       state.comments = addComment(state, payload)
     })

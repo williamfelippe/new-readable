@@ -56,27 +56,38 @@ const postSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchPosts.pending, (state) => {
       state.isLoadingPosts = true
-    })
+    }),
     builder.addCase(fetchPosts.fulfilled, (state, { payload }) => {
       const { posts, postsIds } = normalizePostList(payload)
       state.posts = posts
       state.postsIds = postsIds
       state.isLoadingPosts = false
       state.errorOnLoadPosts = ''
-    })
+    }),
     builder.addCase(fetchPosts.rejected, (state, action) => {
       if (!action.payload) {
         state.errorOnLoadPosts = action.error.message || ''
       }
 
       state.isLoadingPosts = false
-    })
+    }),
+    builder.addCase(fetchByPostById.pending, (state) => {
+      state.isLoadingPosts = true
+    }),
     builder.addCase(fetchByPostById.fulfilled, (state, { payload }) => {
       const { posts, postsIds } = addPost(state, payload)
 
       state.posts = posts
       state.postsIds = postsIds
-    })
+      state.isLoadingPosts = false
+    }),
+    builder.addCase(fetchByPostById.rejected, (state, action) => {
+      if (!action.payload) {
+        state.errorOnLoadPosts = action.error.message || ''
+      }
+
+      state.isLoadingPosts = false
+    }),
     builder.addCase(deletePost.fulfilled, (state, { payload }) => {
       const { id: postId } = payload
 
@@ -85,7 +96,7 @@ const postSlice = createSlice({
 
       state.posts = posts
       state.postsIds = state.postsIds.filter(id => id !== postId)
-    })
+    }),
     builder.addCase(votePost.fulfilled, (state, { payload }) => {
       const { posts, postsIds } = addPost(state, payload)
 

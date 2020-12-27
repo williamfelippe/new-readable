@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 
-import Vote from '../types/vote'
+import Vote from '../../types/vote'
 import {
   Button,
   Tooltip
@@ -20,9 +20,10 @@ const VoteButtons = ({ voteScore, onVote, className }: Props) => {
   const classes = classnames('flex items-center', className)
 
   return (
-    <div className={classes}>
+    <div data-testid="vote-buttons" className={classes}>
       <Button
-        data-tip="Up vote"
+        data-tip="Down vote"
+        data-testid="down-vote-button"
         className="hover:text-indigo-400 transition duration-300 ease-in-out"
         onClick={() => onVote(Vote.DOWN)}>
         <ChevronDown />
@@ -31,7 +32,8 @@ const VoteButtons = ({ voteScore, onVote, className }: Props) => {
       <span className="mx-2">{voteScore}</span>
 
       <Button
-        data-tip="Down vote"
+        data-tip="Up vote"
+        data-testid="up-vote-button"
         className="hover:text-indigo-400 transition duration-300 ease-in-out"
         onClick={() => onVote(Vote.UP)}>
         <ChevronUp />
