@@ -25,6 +25,7 @@ const Sidebar = ({ children, open, onClose, className }: Props) => {
       <aside data-testid="sidebar" className={classes}>
         <Button
           onClick={onClose}
+          data-testid="sidebar-close-button"
           className="hover:text-indigo-400 text-base mb-8 pt-8 pl-8">
           <CloseIcon />
         </Button>

@@ -28,6 +28,7 @@ const ActionsButtons = ({ post, onRemove, onVote }: Props) => {
         exact
         to={`${RoutesPaths.ROOT}?postId=${post.id}`}
         data-tip="Comments"
+        data-testid="comment-button"
         className={`flex items-center hover:text-indigo-400
         justify-center transition duration-300 ease-in-out`}>
         <CommentIcon /> <span className="m-3">
@@ -47,6 +48,7 @@ const ActionsButtons = ({ post, onRemove, onVote }: Props) => {
       <Button
         onClick={handleRemove}
         data-tip="Remove"
+        data-testid="remove-button"
         className="hover:text-indigo-400 transition duration-300 ease-in-out">
         <RemoveIcon />
       </Button>

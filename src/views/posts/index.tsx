@@ -112,6 +112,7 @@ const Posts = () => {
         <div className="flex flex-col">
           <div className="w-full max-w-xs self-end mb-8">
             <Select
+              id="order_by"
               name="order_by"
               label="Order by:"
               value={orderBy}
