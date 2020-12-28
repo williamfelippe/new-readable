@@ -4,7 +4,7 @@ import Posts from './'
 import Post from 'modules/post/types/post'
 import TestServer from 'common/testsSuit/server'
 import RoutesPaths from 'common/routes/routesPaths'
-import MockRequests from 'common/testsSuit/mockRequest'
+import MockRequests, { HttpMethods } from 'common/testsSuit/mockRequest'
 import { renderWithProviders, screen, userEvent, waitFor } from 'common/testsSuit'
 
 const mockHistoryPush = jest.fn()
@@ -26,7 +26,7 @@ const mockPostsList: Post[] = [
     category: 'react',
     voteScore: 2,
     deleted: false,
-    commentCount: 3
+    commentCount: 0
   },
   {
     id: 'test2',
@@ -40,6 +40,18 @@ const mockPostsList: Post[] = [
     commentCount: 1
   }
 ]
+
+const mockPost = {
+  id: 'test',
+  timestamp: 14848115,
+  title: 'Test title',
+  body: 'Test body',
+  author: 'Test author',
+  category: 'react',
+  voteScore: 2,
+  deleted: false,
+  commentCount: 3
+}
 
 const prepare = (initialState = {}) => {
   return renderWithProviders(<Posts />, { initialState })
@@ -94,5 +106,99 @@ describe('The posts page', () => {
 
     const errorMessage = await screen.findByText('Error message mock')
     expect(errorMessage).toBeInTheDocument()
+  })
+
+  it('should show confirmation modal when clicking at "remove" button in a post', async () => {
+    MockRequests.mock<Post[]>(testServer.server, '/posts', mockPostsList)
+
+    prepare()
+
+    const [removeButton] = await screen.findAllByTestId('remove-button')
+    userEvent.click(removeButton)
+
+    const modal = await screen.findByText('Are you sure that you want to delete this post?')
+    expect(modal).toBeInTheDocument()
+
+    const noButton = screen.getByRole('button', { name: /no/i })
+    userEvent.click(noButton)
+
+    expect(modal).not.toBeInTheDocument()
+  })
+
+  it('should remove post when confirm in modal', async () => {
+    // Mocking apis
+    MockRequests.mock<Post[]>(testServer.server, '/posts', mockPostsList)
+    MockRequests.mock<Post>(
+      testServer.server,
+      '/posts/:postId',
+      mockPost,
+      { httpMethod: HttpMethods.DELETE }
+    )
+
+    // render component
+    prepare()
+
+    // Verify if posts were rendered
+    const firstPost = await screen.findByText(mockPostsList[0].title)
+    const secondPost = screen.getByText(mockPostsList[1].title)
+    expect(firstPost).toBeInTheDocument()
+    expect(secondPost).toBeInTheDocument()
+
+    // Clicking on remove button of first post
+    const [removeButton] = await screen.findAllByTestId('remove-button')
+    userEvent.click(removeButton)
+
+    // Verifying if confirm modal appear
+    const modal = await screen.findByText('Are you sure that you want to delete this post?')
+    expect(modal).toBeInTheDocument()
+
+    // Confirm deletion
+    const yesButton = screen.getByRole('button', { name: /yes/i })
+    userEvent.click(yesButton)
+
+    // Verifying if modal was closed
+    await waitFor(() => expect(modal).not.toBeInTheDocument())
+
+    // Verifying if post was really removed
+    expect(firstPost).not.toBeInTheDocument()
+    expect(secondPost).toBeInTheDocument()
+  })
+
+  it('should open comments sidebar when clicking at "comment" button in a post', async () => {
+    // Mocking apis
+    MockRequests.mock<Post[]>(
+      testServer.server,
+      '/posts',
+      mockPostsList
+    )
+    MockRequests.mock<Post>(
+      testServer.server,
+      '/posts/:postId',
+      { ...mockPost, voteScore: 3 },
+      { httpMethod: HttpMethods.POST }
+    )
+    MockRequests.mock<Comment[]>(
+      testServer.server,
+      '/posts/:postId/comments',
+      []
+    )
+
+    // render component
+    prepare()
+
+    // Clicking on comment button of first post
+    const [commentButton] = await screen.findAllByTestId('comment-button')
+    userEvent.click(commentButton)
+
+    // Verifying if comments sidebar is visible
+    const sidebar = await screen.findByTestId('sidebar')
+    expect(sidebar).toHaveClass('-translate-x-0')
+
+    // Verifying if comments sidebar is hidden
+    const closeButton = screen.getByTestId('sidebar-close-button')
+    userEvent.click(closeButton)
+
+    await waitFor(() => expect(sidebar).toHaveClass('translate-x-full'))
+    expect(mockHistoryPush).toHaveBeenCalledWith(RoutesPaths.ROOT)
   })
 })
