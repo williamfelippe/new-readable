@@ -2,6 +2,7 @@
 /build/**
 /config/**
 /scripts/**
+/server/**
 /src/transifex/**
 /src/declarations/**
 tailwind.js
