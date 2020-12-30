@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 import Vote from '../../types/vote'
 import {
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const VoteButtons = ({ voteScore, onVote, className }: Props) => {
-  const classes = classnames('flex items-center', className)
+  const classes = clsx('flex items-center', className)
 
   return (
     <div data-testid="vote-buttons" className={classes}>

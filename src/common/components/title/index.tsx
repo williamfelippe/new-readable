@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 export type TagType = 'h1' | 'h2' | 'h3' | 'h4'
 
@@ -29,7 +29,7 @@ const getFormatedTitle = (title: string) => {
 }
 
 const Title = ({ tag, title, className, unstyled = false }: Props) => {
-  const classes = classnames(`text-center font-bold ${getTextClassByTag(tag)}`, className)
+  const classes = clsx(`text-center font-bold ${getTextClassByTag(tag)}`, className)
 
   const Tag = tag
 

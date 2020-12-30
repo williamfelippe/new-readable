@@ -1,11 +1,11 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 interface Props {
   className?: string
 }
 
 const Info = ({ className }: Props) => {
-  const classes = classnames('w-6 h-6', className)
+  const classes = clsx('w-6 h-6', className)
 
   return (
     <svg
