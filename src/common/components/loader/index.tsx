@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 import Backdrop from '../backdrop'
 
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Loader = ({ classNames, size = LoaderSizes.LG, full = false }: Props) => {
-  const loaderClasses = classnames(
+  const loaderClasses = clsx(
     `rounded-full border-solid border-gray-300
     border-t-indigo-400 animate-spin`,
     {

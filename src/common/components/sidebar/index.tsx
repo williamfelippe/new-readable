@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 import Button from '../button'
 import { CloseIcon } from 'common/assets/icons'
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Sidebar = ({ children, open, onClose, className }: Props) => {
-  const classes = classnames(`transform top-0 right-0 w-1/4 bg-white fixed h-full
+  const classes = clsx(`transform top-0 right-0 w-1/4 bg-white fixed h-full
   overflow-auto ease-in-out transition-all duration-300 z-30
   border-l-2 border-opacity-60 shadow`, className, {
     '-translate-x-0': open,

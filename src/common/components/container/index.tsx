@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 interface Props {
   children: ReactNode,
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Container = ({ children, className }: Props) => {
-  const classes = classnames('container mx-auto px-4', className)
+  const classes = clsx('container mx-auto px-4', className)
   return (
     <div className={classes}>
       {children}

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 interface Props {
   children: ReactNode,
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Backdrop = ({ children, className }: Props) => {
-  const classes = classnames(`top-0 left-0 w-full h-full z-40 fixed bg-white
+  const classes = clsx(`top-0 left-0 w-full h-full z-40 fixed bg-white
   bg-opacity-90 flex items-center justify-center`, className)
 
   return (

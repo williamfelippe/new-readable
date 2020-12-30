@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 
@@ -54,7 +54,7 @@ const CreateCommentArea = ({ postId, position = CreateCommentAreaPosition.STICKY
     }
   }
 
-  const classes = classnames(`flex items-center bottom-0 left-0 p-5 w-full
+  const classes = clsx(`flex items-center bottom-0 left-0 p-5 w-full
   border-t border-gray-200 shadow bg-gray-50`, position)
 
   return (
@@ -73,7 +73,7 @@ const CreateCommentArea = ({ postId, position = CreateCommentAreaPosition.STICKY
         data-testid="create-area-submit-button"
         type="submit"
         disabled={false}
-        className={classnames('ml-5 hover:text-indigo-400 text-base flex-none', {
+        className={clsx('ml-5 hover:text-indigo-400 text-base flex-none', {
           'animate-bounce': false // TODO: Add loading status when creating comment
         })}>
         <SendIcon />

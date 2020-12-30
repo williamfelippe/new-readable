@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 interface Props {
   children: ReactNode,
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Card = ({ children, className, dataTestId }: Props) => {
-  const classes = classnames('bg-white p-4 shadow rounded-md', className)
+  const classes = clsx('bg-white p-4 shadow rounded-md', className)
 
   return (
     <div data-testid={dataTestId} className={classes}>
