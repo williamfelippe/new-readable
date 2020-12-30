@@ -25,5 +25,5 @@ jobs:
       - name: Unit/Integration tests
         run: yarn test:ci
 
-      # - name: E2E tests
-      #   run: yarn test:e2e:ci
+      - name: E2E tests
+        run: yarn test:e2e:ci
